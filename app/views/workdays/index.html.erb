@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Workdays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+      <th>Type</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @workdays.each do |workday| %>
+      <tr>
+        <td><%= workday.start %></td>
+        <td><%= workday.end %></td>
+        <td><%= workday.type %></td>
+        <td><%= workday.comment %></td>
+        <td><%= link_to 'Show', workday %></td>
+        <td><%= link_to 'Edit', edit_workday_path(workday) %></td>
+        <td><%= link_to 'Destroy', workday, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Workday', new_workday_path %>
