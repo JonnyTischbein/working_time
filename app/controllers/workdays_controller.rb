@@ -45,7 +45,7 @@ class WorkdaysController < ApplicationController
       if params[:submit] == "End":
         @workday.end = Time.now
       end
-      
+
       if @workday.update(workday_params)
         format.html { redirect_to @workday, notice: 'Workday was successfully updated.' }
         format.json { render :show, status: :ok, location: @workday }
@@ -74,6 +74,6 @@ class WorkdaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def workday_params
-      params.require(:workday).permit(:start, :end, :type, :comment)
+      params.require(:workday).permit(:start_time, :end_time, :category, :comment)
     end
 end

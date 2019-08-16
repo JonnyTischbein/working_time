@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20190815111147) do
 
   create_table "workdays", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
-    t.string   "type"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "category"
     t.string   "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
