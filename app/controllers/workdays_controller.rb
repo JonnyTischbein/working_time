@@ -1,5 +1,5 @@
 class WorkdaysController < ApplicationController
-  before_action :set_workday, only: [:show, :edit, :update, :destroy]
+  before_action :set_workday, only: [:show, :edit, :update, :destroy, :ending]
 
   # GET /workdays
   # GET /workdays.json
@@ -25,10 +25,10 @@ class WorkdaysController < ApplicationController
   # POST /workdays.json
   def create
     @workday = Workday.new(workday_params)
+    @workday.start_time = Time.now
 
     respond_to do |format|
       if @workday.save
-        @workday.start = Time.now
         format.html { redirect_to @workday, notice: 'Workday was successfully created.' }
         format.json { render :show, status: :created, location: @workday }
       else
@@ -38,14 +38,16 @@ class WorkdaysController < ApplicationController
     end
   end
 
+  def ending
+    @workday.end_time = Time.now
+	@workday.save
+	redirect_to @workday, notice: 'Workday finished.'
+  end
+
   # PATCH/PUT /workdays/1
   # PATCH/PUT /workdays/1.json
   def update
     respond_to do |format|
-      if params[:submit] == "End":
-        @workday.end = Time.now
-      end
-
       if @workday.update(workday_params)
         format.html { redirect_to @workday, notice: 'Workday was successfully updated.' }
         format.json { render :show, status: :ok, location: @workday }

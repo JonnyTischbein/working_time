@@ -5,8 +5,8 @@
 <table>
   <thead>
     <tr>
-      <th>Start</th>
-      <th>End</th>
+      <th>Date</th>
+      <th>Duration</th>
       <th>Type</th>
       <th>Comment</th>
       <th colspan="3"></th>
@@ -16,12 +16,16 @@
   <tbody>
     <% @workdays.each do |workday| %>
       <tr>
-        <td><%= workday.start %></td>
-        <td><%= workday.end %></td>
-        <td><%= workday.type %></td>
+       <td><%= workday.start_time.try(:strftime,"%d.%m.%Y") %></td>
+		<% if workday.end_time? %>
+	        <td><%= distance_of_time_in_words(workday.start_time - workday.end_time) %></td>
+		<% else %>
+			<td><i>Running</i></td>
+		<% end %>
+        <td><%= workday.category %></td>
         <td><%= workday.comment %></td>
         <td><%= link_to 'Show', workday %></td>
-        <td><%= link_to 'End', workday, method: :update, data: { submit: 'End' } %></td>
+        <td><%= link_to 'End', ending_workday_path(workday) %></td>
         <td><%= link_to 'Edit', edit_workday_path(workday) %></td>
         <td><%= link_to 'Destroy', workday, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
