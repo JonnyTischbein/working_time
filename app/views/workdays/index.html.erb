@@ -21,6 +21,7 @@
         <td><%= workday.type %></td>
         <td><%= workday.comment %></td>
         <td><%= link_to 'Show', workday %></td>
+        <td><%= link_to 'End', workday, method: :update, data: { submit: 'End' } %></td>
         <td><%= link_to 'Edit', edit_workday_path(workday) %></td>
         <td><%= link_to 'Destroy', workday, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

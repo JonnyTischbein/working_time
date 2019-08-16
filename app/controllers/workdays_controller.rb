@@ -28,6 +28,7 @@ class WorkdaysController < ApplicationController
 
     respond_to do |format|
       if @workday.save
+        @workday.start = Time.now
         format.html { redirect_to @workday, notice: 'Workday was successfully created.' }
         format.json { render :show, status: :created, location: @workday }
       else
@@ -41,6 +42,10 @@ class WorkdaysController < ApplicationController
   # PATCH/PUT /workdays/1.json
   def update
     respond_to do |format|
+      if params[:submit] == "End":
+        @workday.end = Time.now
+      end
+      
       if @workday.update(workday_params)
         format.html { redirect_to @workday, notice: 'Workday was successfully updated.' }
         format.json { render :show, status: :ok, location: @workday }
