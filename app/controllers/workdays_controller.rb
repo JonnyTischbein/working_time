@@ -4,7 +4,7 @@ class WorkdaysController < ApplicationController
   # GET /workdays
   # GET /workdays.json
   def index
-    @workdays = Workday.all
+    @workdays = Workday.all.reverse
   end
 
   # GET /workdays/1
@@ -29,7 +29,7 @@ class WorkdaysController < ApplicationController
 
     respond_to do |format|
       if @workday.save
-        format.html { redirect_to @workday, notice: 'Workday was successfully created.' }
+        format.html { redirect_to workdays_path, notice: 'Workday was successfully created.' }
         format.json { render :show, status: :created, location: @workday }
       else
         format.html { render :new }
@@ -39,9 +39,9 @@ class WorkdaysController < ApplicationController
   end
 
   def ending
-    @workday.end_time = Time.now
+    @workday.end_time = Time.current
 	@workday.save
-	redirect_to @workday, notice: 'Workday finished.'
+	redirect_to workdays_path, notice: 'Workday finished.'
   end
 
   # PATCH/PUT /workdays/1
@@ -49,7 +49,7 @@ class WorkdaysController < ApplicationController
   def update
     respond_to do |format|
       if @workday.update(workday_params)
-        format.html { redirect_to @workday, notice: 'Workday was successfully updated.' }
+        format.html { redirect_to workdays_path, notice: 'Workday was successfully updated.' }
         format.json { render :show, status: :ok, location: @workday }
       else
         format.html { render :edit }
@@ -76,6 +76,6 @@ class WorkdaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def workday_params
-      params.require(:workday).permit(:start_time, :end_time, :category, :comment)
+      params.require(:workday).permit(:start_time, :end_time, :category_id, :comment)
     end
 end
