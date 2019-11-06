@@ -20,8 +20,8 @@
     <%= f.datetime_select :end_time %>
   </div>
   <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
+    <%= f.label :category_id %><br>
+    <%= f.select :category_id, Category.all.map{|c| [c.title, c.id]}, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>

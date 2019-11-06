@@ -2,7 +2,7 @@
 
 <%= form_for(@workday) do |f| %>
   <% if @workday.errors.any? %>
-    <div id="error_explanation">
+    <div id="alert alert-danger">
       <h2><%= pluralize(@workday.errors.count, "error") %> prohibited this workday from being saved:</h2>
 
       <ul>
@@ -13,16 +13,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :category %><br>
-    <%= f.text_field :category %>
+  <div class="form-group">
+    <%= f.label :category_id %><br>
+    <%= f.select :category_id, Category.all.map{|c| [c.title, c.id]}, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :comment %><br>
-    <%= f.text_field :comment %>
+    <%= f.text_field :comment, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div>
+    <br />
+    <%= f.submit 'Submit', class: 'btn btn-dark' %>
   </div>
 <% end %>
 
