@@ -15,10 +15,12 @@
     <%= f.label :start_time %><br>
     <%= f.datetime_select :start_time %>
   </div>
+  <% if @workday.end_time %>
   <div class="field">
     <%= f.label :end_time %><br>
     <%= f.datetime_select :end_time %>
   </div>
+<% end %>
   <div class="field">
     <%= f.label :category_id %><br>
     <%= f.select :category_id, Category.all.map{|c| [c.title, c.id]}, class: 'form-control' %>

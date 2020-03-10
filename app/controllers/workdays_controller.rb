@@ -25,7 +25,7 @@ class WorkdaysController < ApplicationController
   # POST /workdays.json
   def create
     @workday = Workday.new(workday_params)
-    @workday.start_time = Time.now
+    @workday.start_time = Time.zone.now
 
     respond_to do |format|
       if @workday.save
@@ -39,7 +39,7 @@ class WorkdaysController < ApplicationController
   end
 
   def ending
-    @workday.end_time = Time.current
+    @workday.end_time = Time.zone.now
 	@workday.save
 	redirect_to workdays_path, notice: 'Workday finished.'
   end

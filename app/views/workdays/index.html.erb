@@ -1,6 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<br />
+<div class="alert alert-warning alert-dismissible fade show" role="alert" id="notice">
+  <%= notice %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% end %>
 
-<h1>Listing Workdays</h1>
+<h1>Listing Workdays <i class="fa fa-camera-retro"></i></h1>
 
 
     <% @workdays.group_by{ |day| day.start_time.strftime("%B %Y")}.each do |group, workdays| %>
@@ -8,14 +16,14 @@
 				<% total_time = (workdays.select{|day| !day.end_time.nil? and !day.start_time.nil?}.map{|day| (day.end_time.to_f - day.start_time.to_f) }.inject(0,:+).to_i.abs)%>
 				<strong><%= group%> - Total</strong>: <%= total_time / 60 / 60%>h <%= total_time / 60 % 60 %>m
 		</div>
+		<div class="table-responsive">
 		<table class="table">
 		  <thead>
 			<tr>
 			  <th>Date</th>
 			  <th>Duration</th>
 			  <th>Type</th>
-			  <th>Comment</th>
-			  <th colspan="3"></th>
+			  <th colspan="1"></th>
 			</tr>
 		  </thead>
 		<tbody>
@@ -28,13 +36,13 @@
 					<td><i>Running</i></td>
 				<% end %>
 				<td><%= workday.category.title %></td>
-				<td><%= workday.comment %></td>
 				<td><%= link_to 'End', ending_workday_path(workday), class: 'btn btn-sm btn-dark' if workday.end_time.nil?%></td>
-				<td><%= link_to 'Edit', edit_workday_path(workday), class: 'btn btn-sm btn-dark' %></td>
-				<td><%= link_to 'Destroy', workday, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-dark' %></td>
+				<td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_workday_path(workday), class: 'btn btn-sm btn-dark' %>
+				<%= link_to '<i class="fa fa-trash"></i>'.html_safe, workday, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-dark' %></td>
 			  </tr>
 		<% end %>
 		</tbody>
 		</table>
+		</div>
     <% end %>
 
